@@ -1,26 +1,138 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Neue Haas Grotesk Text Pro";
+  src: url("/fonts/NeueHaasGroteskTextPro-400.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Neue Haas Grotesk Text Pro";
+  src: url("/fonts/NeueHaasGroteskTextPro-700.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Neue Haas Grotesk Text Pro";
+  src: url("/fonts/NeueHaasGroteskTextPro-800.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 800;
+  font-style: normal;
+}
+
+@theme {
+  --color-cream: #ede4dd;
+  --color-red: #ff0001;
+  --color-black: #000000;
+  --font-sans: "Neue Haas Grotesk Text Pro", "Helvetica Neue", Helvetica,
+    Arial, ui-sans-serif, system-ui, sans-serif;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ease-out-extreme: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out-extreme: cubic-bezier(0.87, 0, 0.13, 1);
+  --page-background: #ede4dd;
+  --page-foreground: #ff0001;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--page-background);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--page-background);
+  color: var(--page-foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html[data-theme="red"] {
+  --page-background: #ede4dd;
+  --page-foreground: #ff0001;
+}
+
+html[data-theme="dark"] {
+  --page-background: #000000;
+  --page-foreground: #ede4dd;
+}
+
+html[data-theme="light"] {
+  --page-background: #ffffff;
+  --page-foreground: #000000;
+}
+
+::selection {
+  background: var(--color-red);
+  color: #fff;
+}
+
+html[data-theme="red"] ::selection {
+  background: var(--color-black);
+}
+
+.link-hover {
+  position: relative;
+}
+.link-hover::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.1em;
+  height: max(2px, 0.1em);
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.83, 0, 0.17, 1);
+}
+.link-hover:hover::after {
+  transform: scaleX(1);
+}
+
+#header {
+  opacity: 0;
+  transform: translateY(-6rem);
+  transition: opacity 2s, transform 2s;
+  transition-timing-function: var(--ease-out-extreme);
+  transition-delay: 0.5s;
+}
+html.loaded #header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#header a,
+#header button {
+  color: var(--page-foreground);
+}
+
+#hero-line {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.4s var(--ease-out-extreme);
+}
+html.ready #hero-line {
+  transform: scaleX(1);
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition: opacity 1s var(--ease-out-extreme),
+    transform 1s var(--ease-out-extreme);
+}
+html.ready [data-reveal] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

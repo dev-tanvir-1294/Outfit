@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OUTFIT® — Headless Storefront (WooCommerce)
 
-## Getting Started
+A faithful clone of the `outfit.hellohello.is` design, rebuilt on **Next.js + Tailwind CSS** and powered by a **WordPress + WooCommerce** backend through the REST API.
 
-First, run the development server:
+## Stack
+
+- **Frontend:** Next.js 16 (App Router), TypeScript, Tailwind CSS v4
+- **Backend:** WordPress + WooCommerce (REST API)
+
+## Setup
+
+### 1. Create WooCommerce API keys
+
+In WordPress admin: **WooCommerce → Settings → Advanced → REST API → Add key**.
+Set permissions to **Read/Write** and copy the **Consumer key** (`ck_…`) and
+**Consumer secret** (`cs_…`). Your store must be reachable over HTTPS.
+
+### 2. Import the products
+
+**WooCommerce → Products → Import** and upload `woocommerce-products.csv`.
+On the mapping step, map **Name**, **Regular price**, **Short description**,
+**Description**, **In stock?**, **Categories**, and **Images** to "Import as…",
+then run the importer. Product images are downloaded from their source URLs.
+
+### 3. Configure environment
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Edit `.env.local`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | Description |
+| --- | --- |
+| `WOOCOMMERCE_URL` | Store root URL, e.g. `https://redbox.page.gd/outfit` |
+| `WOOCOMMERCE_CONSUMER_KEY` | The `ck_…` key |
+| `WOOCOMMERCE_CONSUMER_SECRET` | The `cs_…` secret |
+| `WOOCOMMERCE_CURRENCY` | Currency code, e.g. `USD` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Run
 
-## Learn More
+```bash
+npm install
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy with GitHub and Netlify
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Create a GitHub repository and push this project. Do not commit `.env.local`
+   or paste secret values into source files. `.env*` files are ignored by Git;
+   `.env.example` contains placeholders only.
+2. In Netlify, choose **Add new site → Import an existing project** and connect
+   the GitHub repository. Netlify detects Next.js and uses its Next.js adapter;
+   the included `netlify.toml` sets the build command to `npm run build`.
+3. In **Site configuration → Environment variables**, add these variables for
+   the Netlify site:
 
-## Deploy on Vercel
+   | Variable | Value |
+   | --- | --- |
+   | `WOOCOMMERCE_URL` | WooCommerce site root URL, with no trailing slash |
+   | `WOOCOMMERCE_CONSUMER_KEY` | WooCommerce REST API consumer key |
+   | `WOOCOMMERCE_CONSUMER_SECRET` | WooCommerce REST API consumer secret |
+   | `WOOCOMMERCE_CURRENCY` | Store currency code, such as `BDT` or `USD` |
+   | `WORDPRESS_URL` | Optional; WordPress site root if different from WooCommerce |
+   | `WORDPRESS_JWT_PATH` | Optional; JWT endpoint path if not the default |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   The consumer key and secret must remain server-side. Do not prefix them with
+   `NEXT_PUBLIC_`; never place their real values in `.env.example`, GitHub, or
+   `netlify.toml`. Enter actual values only in Netlify's environment-variable
+   settings (mark secrets as secret when Netlify offers that option).
+4. Trigger a deploy. After changing environment variables, redeploy the site so
+   the Next.js server functions receive the updated values.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Data flow
+
+- `lib/catalog.ts` is the single data source for the storefront. It fetches live
+  products from WooCommerce, and falls back to the bundled mock data
+  (`lib/mock-data.ts`) when `.env.local` is not configured — so the site previews
+  immediately, then goes live once you add your keys.
+- `lib/woocommerce.ts` is the REST client (products, categories, orders, customers).
+- `woocommerce-products.csv` is the import file for your WooCommerce catalog.
+
+## Notes
+
+- The reference site runs Shopify headless; this project keeps the same frontend
+  but swaps the commerce layer to WooCommerce.
+- Sizes/colors are imported as product attributes. If you need purchasable
+  variations (e.g. selectable sizes with per-size pricing), the CSV can be
+  extended to variable products.
