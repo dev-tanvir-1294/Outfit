@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     const image = await fetchWooProductImage(src);
     const headers = new Headers({
       "Content-Type": image.headers.get("content-type") ?? "application/octet-stream",
-      "Cache-Control": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800",
+      "Cache-Control": "private, max-age=3600",
       "X-Content-Type-Options": "nosniff",
     });
     const contentLength = image.headers.get("content-length");
