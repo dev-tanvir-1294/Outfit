@@ -54,7 +54,7 @@ export default async function Home() {
               data-reveal
               style={{ transitionDelay: "0s" }}
             >
-              <h1 className="uppercase">+-Outfit</h1>
+              <h1 className="uppercase">+- Outfit</h1>
             </div>
             <div
               className="col-span-5 md:col-span-8"
@@ -63,7 +63,7 @@ export default async function Home() {
             >
               <h2 className="mb-4 uppercase">Why</h2>
               <p className="text-sm leading-4 tracking-tight md:max-w-[60%]">
-                Created by the +-Outfit team, this store and signature
+                Created by the +- Outfit team, this store and signature
                 collection celebrates our collective creativity and passion for
                 apparel. Carefully designed.
               </p>

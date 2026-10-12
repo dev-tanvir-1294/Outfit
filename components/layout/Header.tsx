@@ -17,7 +17,7 @@ export function Header() {
         className="fixed left-0 top-0 z-30 flex w-full items-center justify-between"
       >
         <div className="mx-auto flex w-full items-center justify-between px-4 py-8 lg:px-6">
-          <Link href="/" aria-label="+-Outfit" className="mr-2 lg:mr-6">
+          <Link href="/" aria-label="+- Outfit" className="mr-2 lg:mr-6">
             <IconMark className="h-[1.5em] w-[3.375em]" />
           </Link>
 

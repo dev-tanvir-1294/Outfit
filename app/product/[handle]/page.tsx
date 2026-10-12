@@ -13,7 +13,7 @@ export async function generateMetadata({
   const { handle } = await params;
   const product = await getStoreProduct(handle).catch(() => null);
   return {
-    title: product ? `${product.title} | +-Outfit` : "+-Outfit",
+    title: product ? `${product.title} | +- Outfit` : "+- Outfit",
   };
 }
 

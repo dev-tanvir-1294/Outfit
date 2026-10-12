@@ -8,9 +8,9 @@ import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "+-Outfit",
+  title: "+- Outfit",
   description:
-    "The +-Outfit store and signature collection, carefully designed for everyday wear.",
+    "The +- Outfit store and signature collection, carefully designed for everyday wear.",
 };
 
 const themeScript = `try{var t=localStorage.getItem('theme')||'red';document.documentElement.setAttribute('data-theme',t);}catch(e){}`;

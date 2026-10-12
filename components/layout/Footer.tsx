@@ -34,7 +34,7 @@ export function Footer() {
 
       <div className="mb-4 mt-[8rem] md:mt-[16rem]">
         <p className="max-w-[52ch] tracking-tight text-balance md:text-2xl">
-          Created by the +-Outfit team, this store and signature collection
+          Created by the +- Outfit team, this store and signature collection
           celebrates our collective creativity and passion for apparel.
           Carefully designed.
         </p>
@@ -45,7 +45,7 @@ export function Footer() {
       <div className="grid grid-cols-2 gap-x-6 gap-y-20 font-bold md:grid-cols-16 md:gap-6">
         <div className="order-last col-span-2 md:order-first md:col-span-4">
           <div className="flex flex-col">
-            <Link href="/" aria-label="+-Outfit home" className="mb-2 flex w-fit items-center gap-2">
+            <Link href="/" aria-label="+- Outfit home" className="mb-2 flex w-fit items-center gap-2">
               <IconMark className="h-[14px] w-[31.5px]" />
               <span>Outfit</span>
             </Link>
