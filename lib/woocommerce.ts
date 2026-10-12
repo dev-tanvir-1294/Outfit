@@ -75,6 +75,62 @@ async function fetchWoo(
   return res;
 }
 
+function isWooProductImageUrl(url: URL): boolean {
+  if (!BASE_URL) return false;
+
+  const baseUrl = new URL(BASE_URL);
+  return (
+    url.origin === baseUrl.origin &&
+    !url.username &&
+    !url.password &&
+    url.pathname.includes("/wp-content/uploads/")
+  );
+}
+
+export async function fetchWooProductImage(src: string): Promise<Response> {
+  let url: URL;
+  try {
+    url = new URL(src);
+  } catch {
+    throw new Error("Invalid WooCommerce product image URL");
+  }
+
+  for (let redirects = 0; redirects <= 3; redirects += 1) {
+    if (!isWooProductImageUrl(url)) {
+      throw new Error("Product images must come from WooCommerce uploads");
+    }
+
+    const response = await fetchWoo(url.href, {
+      method: "GET",
+      redirect: "manual",
+    });
+    if (response.status < 300 || response.status >= 400) {
+      if (!response.ok) {
+        throw new Error(
+          `WooCommerce product image request failed with status ${response.status}`
+        );
+      }
+
+      const contentType = response.headers.get("content-type") ?? "";
+      if (!contentType.toLowerCase().startsWith("image/")) {
+        throw new Error(
+          "WooCommerce returned non-image content for a product image"
+        );
+      }
+
+      return response;
+    }
+
+    const location = response.headers.get("location");
+    if (!location || redirects === 3) {
+      throw new Error("WooCommerce product image redirected too many times");
+    }
+    url = new URL(location, url);
+  }
+
+  throw new Error("Unable to load WooCommerce product image");
+}
+
 async function request<T>(
   path: string,
   options: RequestInit = {}

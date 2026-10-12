@@ -41,8 +41,8 @@ export function Footer() {
 
       <hr className="mb-6 h-[2px] w-full bg-current" />
 
-      <div className="grid grid-cols-16 gap-x-6 gap-y-20 font-bold md:gap-6">
-        <div className="order-last col-span-16 md:order-first md:col-span-4">
+      <div className="grid grid-cols-2 gap-x-6 gap-y-20 font-bold md:grid-cols-16 md:gap-6">
+        <div className="order-last col-span-2 md:order-first md:col-span-4">
           <div className="flex flex-col">
             <a
               href="https://www.hellohello.is"
@@ -56,11 +56,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="col-span-8 md:col-span-3">
+        <div className="col-span-1 md:col-span-3">
           Mirpur-10 <br /> Office 102 <br /> Dhaka, Bangladesh
         </div>
 
-        <div className="col-span-8 md:col-span-4">
+        <div className="col-span-1 md:col-span-4">
           <a
             href="https://www.hellohello.is/privacy-policy"
             target="_blank"
@@ -71,7 +71,7 @@ export function Footer() {
           </a>
         </div>
 
-        <div className="order-first col-span-16 flex justify-evenly md:order-last md:col-span-5">
+        <div className="order-first col-span-2 flex justify-evenly md:order-last md:col-span-5">
           <div className="flex flex-1 flex-col gap-3">
             {SOCIALS.map((link) => (
               <a

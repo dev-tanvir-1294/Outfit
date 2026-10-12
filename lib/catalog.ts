@@ -18,12 +18,15 @@ function mockToStore(product: MockProduct, index: number): StoreProduct {
 
 function mapWooProduct(product: WooProduct): StoreProduct {
   const currency = getStoreCurrency();
+  const toImageUrl = (src: string | undefined): string =>
+    src ? `/api/product-image?url=${encodeURIComponent(src)}` : "";
   const price =
     product.on_sale && product.sale_price
       ? product.sale_price
       : product.regular_price || product.price || "0";
-  const image = product.images?.[0]?.src ?? "";
-  const imageHover = product.images?.[1]?.src ?? image;
+  const image = toImageUrl(product.images?.[0]?.src);
+  const imageHover =
+    toImageUrl(product.images?.[1]?.src) || image;
   const options = (product.attributes ?? [])
     .filter((attr) => attr.name && (attr.options ?? []).length > 0)
     .map((attr) => ({

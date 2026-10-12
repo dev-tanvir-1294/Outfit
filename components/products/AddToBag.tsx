@@ -35,10 +35,10 @@ export function AddToBag({ product }: { product: StoreProduct }) {
       {options.map((option) => (
         <div
           key={option.name}
-          className="flex min-h-[76px] items-start justify-between gap-4 border-b border-current lg:min-h-[68px] lg:items-center"
+          className="flex min-h-[76px] w-full flex-wrap items-start justify-between gap-3 border-b border-current lg:min-h-[68px] lg:flex-nowrap lg:items-center"
         >
-          <p className="text-2xl leading-8 md:text-3xl">{option.name}</p>
-          <div className="flex flex-nowrap justify-end gap-2">
+          <p className="shrink-0 text-xl leading-8 sm:text-2xl md:text-3xl">{option.name}</p>
+          <div className="flex min-w-0 flex-wrap justify-end gap-2 lg:flex-nowrap">
             {option.values.map((value) => {
               const active = selected[option.name] === value;
               return (
@@ -52,7 +52,7 @@ export function AddToBag({ product }: { product: StoreProduct }) {
                     }))
                   }
                   aria-pressed={active}
-                  className={`px-2 text-2xl leading-9 transition-colors md:text-2xl ${
+                  className={`px-2 text-xl leading-8 transition-colors sm:text-2xl sm:leading-9 md:text-2xl ${
                     active
                       ? "bg-[var(--page-foreground)] text-[var(--page-background)]"
                       : "hover:bg-[var(--page-foreground)]/10"
@@ -92,7 +92,7 @@ export function AddToBag({ product }: { product: StoreProduct }) {
         type="button"
         onClick={handleAdd}
         disabled={!product.available || !hasSelectedOptions}
-        className="mt-[50px] flex w-fit items-center gap-4 whitespace-nowrap text-4xl leading-10 transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-50 md:mt-6 md:text-5xl md:leading-tight lg:mt-[58.6px] lg:text-4xl lg:leading-10"
+        className="mt-[50px] flex w-fit max-w-full items-center gap-3 whitespace-normal text-left text-[clamp(1.5rem,8vw,2.25rem)] leading-tight transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-50 md:mt-6 md:gap-4 md:text-[clamp(1.75rem,4vw,2.25rem)] md:leading-tight lg:mt-[58.6px] lg:whitespace-nowrap lg:text-4xl lg:leading-10"
       >
         <span aria-hidden="true">{added ? "✓" : "↗"}</span>
         <span>

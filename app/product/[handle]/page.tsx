@@ -39,7 +39,7 @@ export default async function ProductPage({
           </Link>
         </nav>
 
-        <h1 className="mb-5 whitespace-nowrap text-6xl leading-[1] font-medium tracking-tight md:text-8xl md:leading-[.9]">
+        <h1 className="mb-5 text-[clamp(2.5rem,10.56vw,6rem)] leading-[1] font-medium tracking-tight break-words md:leading-[.9]">
           {product.title}
         </h1>
         <p className="mb-5 text-3xl leading-[1.5] md:text-5xl md:leading-none">
@@ -73,7 +73,7 @@ export default async function ProductPage({
 
         <div className="mt-2 grid gap-8 md:grid-cols-2 md:gap-12 lg:sticky lg:top-28 lg:col-span-7 lg:mt-0 lg:block lg:self-start lg:pt-10">
           <div className="hidden lg:block">
-            <h1 className="invisible mb-5 whitespace-normal text-8xl leading-[.9] font-medium tracking-tight">
+            <h1 className="mb-5 text-[clamp(3rem,6vw,6rem)] leading-[.9] font-medium tracking-tight break-words">
               {product.title}
             </h1>
             <p className="mb-10 text-5xl leading-none">
