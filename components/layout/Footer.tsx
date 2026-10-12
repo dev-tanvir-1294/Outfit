@@ -2,17 +2,17 @@ import Link from "next/link";
 import { IconMark } from "@/components/brand/IconMark";
 
 const SOCIALS = [
-  { label: "Dribbble", href: "https://dribbble.com/hellohelloteam" },
-  { label: "Instagram", href: "https://www.instagram.com/hellohelloteam" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/hellohello" },
-  { label: "Twitter (X)", href: "https://twitter.com/hellohelloteam" },
+  { label: "Dribbble", href: "https://dribbble.com" },
+  { label: "Instagram", href: "https://www.instagram.com" },
+  { label: "LinkedIn", href: "https://www.linkedin.com" },
+  { label: "Twitter (X)", href: "https://x.com" },
 ];
 
 const PAGES = [
-  { label: "Work", href: "https://www.hellohello.is/work" },
-  { label: "Services", href: "https://www.hellohello.is/services" },
-  { label: "About", href: "https://www.hellohello.is/about" },
-  { label: "Careers", href: "https://www.hellohello.is/careers" },
+  "Work",
+  "Services",
+  "About",
+  "Careers",
 ];
 
 export function Footer() {
@@ -58,14 +58,7 @@ export function Footer() {
         </div>
 
         <div className="col-span-1 md:col-span-4">
-          <a
-            href="https://www.hellohello.is/privacy-policy"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="link-hover max-w-fit"
-          >
-            Privacy Policy
-          </a>
+          <span>Privacy Policy</span>
         </div>
 
         <div className="order-first col-span-2 flex justify-evenly md:order-last md:col-span-5">
@@ -84,26 +77,13 @@ export function Footer() {
           </div>
           <div className="flex flex-1 flex-col gap-3">
             {PAGES.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="link-hover max-w-fit"
-              >
-                {link.label}
-              </a>
+              <span key={link} className="max-w-fit">
+                {link}
+              </span>
             ))}
           </div>
           <div className="flex-1">
-            <a
-              href="https://www.hellohello.is/contact"
-              className="link-hover max-w-fit"
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              Let&apos;s talk
-            </a>
+            <span>Let&apos;s talk</span>
           </div>
         </div>
       </div>

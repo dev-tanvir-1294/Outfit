@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Wordmark } from "@/components/brand/Wordmark";
 import { ProductCard } from "@/components/products/ProductCard";
 import { Reveal } from "@/components/Reveal";
@@ -73,20 +74,15 @@ export default async function Home() {
               data-reveal
               style={{ transitionDelay: "0.2s" }}
             >
-              <a
-                href="https://www.hellohello.is"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/"
                 className="link-hover max-w-fit uppercase"
               >
                 Visit our studio
-              </a>
-              <a
-                href="#"
-                className="link-hover hidden max-w-fit uppercase md:inline-block"
-              >
+              </Link>
+              <span className="hidden max-w-fit uppercase md:inline-block">
                 Shipping &amp; Returns
-              </a>
+              </span>
             </div>
             <div
               className="col-span-5 flex justify-end md:col-span-1"
