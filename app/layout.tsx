@@ -8,9 +8,9 @@ import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "OUTFIT® by ++hellohello",
+  title: "+-Outfit",
   description:
-    "Created by the ++hellohello team, this store and signature collection celebrates our collective creativity and passion for apparel. Carefully designed.",
+    "The +-Outfit store and signature collection, carefully designed for everyday wear.",
 };
 
 const themeScript = `try{var t=localStorage.getItem('theme')||'red';document.documentElement.setAttribute('data-theme',t);}catch(e){}`;
