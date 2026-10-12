@@ -33,7 +33,7 @@ export function Footer() {
 
       <div className="mb-4 mt-[8rem] md:mt-[16rem]">
         <p className="max-w-[52ch] tracking-tight text-balance md:text-2xl">
-          Created by the ++hellohello team, this store and signature collection
+          Created by the ++Outfit team, this store and signature collection
           celebrates our collective creativity and passion for apparel.
           Carefully designed.
         </p>
@@ -50,14 +50,14 @@ export function Footer() {
               rel="noreferrer noopener"
             >
               <HelloHelloLogo className="mb-2 h-[14px] w-[105px]" />
-              <span className="sr-only">++hellohello</span>
+              <span className="sr-only">++Outfit</span>
             </a>
             <span>All rights reserved © {new Date().getFullYear()}</span>
           </div>
         </div>
 
         <div className="col-span-8 md:col-span-3">
-          Libertad 2529 <br /> Office 102 <br /> Montevideo, Uruguay
+          Mirpur-10 <br /> Office 102 <br /> Dhaka, Bangladesh
         </div>
 
         <div className="col-span-8 md:col-span-4">
