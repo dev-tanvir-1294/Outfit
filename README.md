@@ -36,6 +36,24 @@ Edit `.env.local`:
 | `WOOCOMMERCE_CONSUMER_KEY` | The `ck_…` key |
 | `WOOCOMMERCE_CONSUMER_SECRET` | The `cs_…` secret |
 | `WOOCOMMERCE_CURRENCY` | Currency code, e.g. `USD` |
+| `PAYSTATION_MERCHANT_ID` | PayStation Merchant ID (server-side only) |
+| `PAYSTATION_PASSWORD` | PayStation password (server-side only) |
+| `PAYSTATION_MODE` | `sandbox` for testing (default) or `live` |
+| `APP_URL` | Public storefront origin used for PayStation's return URL |
+
+The headless checkout uses PayStation's hosted-payment API, not the WooCommerce
+PayStation extension's checkout flow. PayStation payments require the WooCommerce
+store currency to be **BDT** and the enabled PayStation payment method to appear
+in the WooCommerce payment gateways API. The checkout creates a pending order,
+redirects the customer to PayStation, and only marks the WooCommerce order paid
+after server-to-server status verification.
+
+Configure the PayStation merchant IPN URL as
+`https://your-storefront.example.com/api/paystation/ipn`. The IPN handler checks
+the notification against PayStation's transaction-status API and validates the
+invoice and amount before completing an order. Set `APP_URL` to the deployed
+public storefront origin before testing callbacks; localhost cannot receive
+public PayStation notifications.
 
 ### 4. Run
 
@@ -63,13 +81,20 @@ Open [http://localhost:3000](http://localhost:3000).
    | `WOOCOMMERCE_CONSUMER_KEY` | WooCommerce REST API consumer key |
    | `WOOCOMMERCE_CONSUMER_SECRET` | WooCommerce REST API consumer secret |
    | `WOOCOMMERCE_CURRENCY` | Store currency code, such as `BDT` or `USD` |
+   | `PAYSTATION_MERCHANT_ID` | PayStation Merchant ID |
+   | `PAYSTATION_PASSWORD` | PayStation password |
+   | `PAYSTATION_MODE` | `sandbox` for testing or `live` |
+   | `APP_URL` | Public storefront origin, e.g. `https://shop.example.com` |
    | `WORDPRESS_URL` | Optional; WordPress site root if different from WooCommerce |
    | `WORDPRESS_JWT_PATH` | Optional; JWT endpoint path if not the default |
 
-   The consumer key and secret must remain server-side. Do not prefix them with
-   `NEXT_PUBLIC_`; never place their real values in `.env.example`, GitHub, or
-   `netlify.toml`. Enter actual values only in Netlify's environment-variable
-   settings (mark secrets as secret when Netlify offers that option).
+   WooCommerce and PayStation credentials must remain server-side. Do not prefix
+   them with `NEXT_PUBLIC_`; never place their real values in `.env.example`,
+   GitHub, or `netlify.toml`. Enter actual values only in Netlify's
+   environment-variable settings (mark secrets as secret when Netlify offers
+   that option). Start with PayStation sandbox credentials, set the merchant
+   IPN URL to `https://your-storefront.example.com/api/paystation/ipn`, and
+   switch `PAYSTATION_MODE` to `live` only after sandbox verification.
 4. Trigger a deploy. After changing environment variables, redeploy the site so
    the Next.js server functions receive the updated values.
 

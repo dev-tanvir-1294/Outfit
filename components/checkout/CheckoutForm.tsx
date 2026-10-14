@@ -32,6 +32,11 @@ export function CheckoutForm({
   const [paymentMethod, setPaymentMethod] = useState(
     gateways[0]?.id ?? "cod"
   );
+  const payStationSelected = `${paymentMethod} ${
+    gateways.find((gateway) => gateway.id === paymentMethod)?.title ?? ""
+  }`
+    .toLowerCase()
+    .includes("paystation");
 
   if (lines.length === 0 && !order) {
     return (
@@ -134,6 +139,10 @@ export function CheckoutForm({
       if (!res.ok) throw new Error(data.error ?? "Failed to place order");
 
       clearCart();
+      if (data.paymentUrl) {
+        window.location.assign(data.paymentUrl);
+        return;
+      }
       setOrder(data.order);
     } catch (err) {
       setError(
@@ -175,7 +184,11 @@ export function CheckoutForm({
               </div>
               <div>
                 <label className={labelClass}>Phone</label>
-                <input name="billing_phone" className={inputClass} />
+                <input
+                  name="billing_phone"
+                  required={payStationSelected}
+                  className={inputClass}
+                />
               </div>
               <div className="sm:col-span-2">
                 <label className={labelClass}>Address</label>

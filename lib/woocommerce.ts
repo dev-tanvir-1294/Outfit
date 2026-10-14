@@ -321,6 +321,20 @@ export async function getOrder(id: number): Promise<WooOrder> {
   return data;
 }
 
+export async function markOrderPaid(
+  id: number,
+  transactionId: string
+): Promise<WooOrder> {
+  const { data } = await request<WooOrder>(`/orders/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      set_paid: true,
+      transaction_id: transactionId,
+    }),
+  });
+  return data;
+}
+
 export interface RegisterCustomerInput {
   email: string;
   password: string;
